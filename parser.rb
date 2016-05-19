@@ -57,6 +57,11 @@ end
 
 
 games = League.read_data
+
+
+
+puts "First game was between #{games.first.team1} and #{games.first.team2}\nThe final score was #{games.first.fulltime} "
+
 binding.pry
 # def. self.read_data
 # 			f = File.open("premierleague.csv")
