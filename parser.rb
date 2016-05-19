@@ -34,7 +34,12 @@ attr_accessor *COLUMNS
 		  COLUMNS.each_with_index do |name, idx|
         league_result.instance_variable_set("@" + name.to_s, row[idx])
       end
-		
+			league_result.date= Date.parse(league_result.date)
+
+
+			league_result.fulltime = league_result.fulltime.split("-").map(&:to_i)
+
+
       results << league_result
 		
 
@@ -60,7 +65,15 @@ games = League.read_data
 
 
 
-puts "First game was between #{games.first.team1} and #{games.first.team2}\nThe final score was #{games.first.fulltime} "
+puts "_____________________________________\nFirst game was between #{games.first.team1} and #{games.first.team2}\nThe final score was #{games.first.fulltime} "
+
+homes = games.select{|match| match.team1=="Arsenal" }
+aways = games.select{|match| match.team2=="Arsenal" }
+
+home_goals = homes.inject(0){|sum, homepitch| sum+ homepitch.fulltime[0]}
+away_goals = aways.inject(0){|sum, awaypitch| sum+ awaypitch.fulltime[1]}
+
+
 
 binding.pry
 # def. self.read_data
