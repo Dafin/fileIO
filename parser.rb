@@ -1,18 +1,26 @@
 require 'csv'
 require 'date'
+require 'pry'
+
 
 class League
-attr_accessor :team1, :team2, :halftime, :fulltime, :date
 
 
-	def initialize(date, team1, team2, fulltime, halftime)
-		@date = date
-		@team_1 = team1
-		@team2 = team2
-	  @fulltime = fulltime 
-	  @halftime = halftime
+COLUMNS= [:date, :team1, :team2, :halftime, :fulltime ] 
 
-	end
+attr_accessor *COLUMNS
+
+
+
+
+	# def initialize(date, team1, team2, fulltime, halftime)
+	# 	@date = date
+	# 	@team_1 = team1
+	# 	@team2 = team2
+	#   @fulltime = fulltime 
+	#   @halftime = halftime
+
+	# end
 
 
 	def self.read_data
@@ -22,6 +30,14 @@ attr_accessor :team1, :team2, :halftime, :fulltime, :date
 		league_results.shift
 		league_results.each do |row|
 
+			league_result=League.new
+		  COLUMNS.each_with_index do |name, idx|
+        league_result.instance_variable_set("@" + name.to_s, row[idx])
+      end
+		
+      results << league_result
+		
+
 
 			# results << League.new(Date.parse(League[0],League[1],League[2],League[3],League[4])
 
@@ -30,16 +46,18 @@ attr_accessor :team1, :team2, :halftime, :fulltime, :date
 		end
 
 
+
+
 		puts m
 		puts league_results.min
 		puts league_results.max
-
+		return results
 	end
 end
 
 
-League.read_data
-
+games = League.read_data
+binding.pry
 # def. self.read_data
 # 			f = File.open("premierleague.csv")
 # 			results = []
