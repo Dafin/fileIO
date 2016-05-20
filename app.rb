@@ -16,15 +16,17 @@ puts "Name for the filename please"
 file2write = gets.chomp
 
 
-
 puts file2write
 
-CSV.open("#{file2write}.csv", "wb") do |csv|
-  csv << ["row", "of", "CSV", "The Aggregrate goals scored by "]
-  csv << ["Arsenal, this season", all_goals]
- 
-end
 
+CSV.open("#{file2write}.csv", "wb") do |csv|
+
+	csv << League.columns.map(&:to_s)
+
+	games.each do |match|
+		csv << [match.date, match.team1, match.team2, match.halftime, match.fulltime]
+	end
+end
 
 puts all_goals
 
