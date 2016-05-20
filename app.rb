@@ -24,7 +24,7 @@ CSV.open("#{file2write}.csv", "wb") do |csv|
 	csv << League.columns.map(&:to_s)
 
 	games.each do |match|
-		csv << [match.date, match.team1, match.team2, match.halftime, match.fulltime]
+		csv << League.columns.map{|col| match.send(col)}
 	end
 end
 
