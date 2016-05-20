@@ -18,12 +18,17 @@ file2write = gets.chomp
 
 puts file2write
 
+puts File.file?('#{file2write}.csv')
+
+
+
 
 CSV.open("#{file2write}.csv", "wb") do |csv|
 
 	csv << League.columns.map(&:to_s)
 
 	games.each do |match|
+		# for each entry, go through each column and fetch the data, returning the array, then shovel it into the csv
 		csv << League.columns.map{|col| match.send(col)}
 	end
 end
