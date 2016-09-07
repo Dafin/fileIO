@@ -1,8 +1,6 @@
 require 'date'
-require './league'
 require 'csv'
-
-
+require './league'
 
 
 module LeagueCollection

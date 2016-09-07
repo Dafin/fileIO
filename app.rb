@@ -1,5 +1,6 @@
 require 'pry'
 require './league_collection'
+
 games = LeagueCollection.read_data
 
 puts "_____________________________________\nThe First game was between #{games.first.team1} and #{games.first.team2}\nThe final score was #{games.first.fulltime} "
@@ -15,12 +16,9 @@ all_goals = home_goals + away_goals
 puts "Name for the filename please"
 file2write = gets.chomp
 
-
 puts file2write
 
 puts File.file?('#{file2write}.csv')
-
-
 
 
 CSV.open("#{file2write}.csv", "wb") do |csv|
@@ -31,6 +29,7 @@ CSV.open("#{file2write}.csv", "wb") do |csv|
 		# for each entry, go through each column and fetch the data, returning the array, then shovel it into the csv
 		csv << League.columns.map{|col| match.send(col)}
 	end
+
 end
 
 puts all_goals
